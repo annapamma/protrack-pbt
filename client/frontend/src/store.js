@@ -11,8 +11,6 @@ import chromosomeSeries from './chromosomeSeries.js';
 import bottomSeries from './bottomSeries.js';
 import landingDataMutation from "./landingDataMutation.js";
 
-console.log('FOO: ', process.env.NODE_ENV)
-
 Vue.use(Vuex);
 
 //TODO (6/12): phospho view
