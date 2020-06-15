@@ -14,6 +14,15 @@ const fixedCategories = {
                 ['IV', '#E31A1C'],
             ],
             'Diagnosis': [
+               ['Ganglioglioma', '#00FFFF'],
+               ['Ependymoma', '#00FF40'],
+               ['Craniopharyngioma', '#FFBF00'],
+               ['LGG', '#9F72FF'],
+               ['HGG', '#3249DC'],
+               ['ATRT', '#b30103'],
+               ['Medulloblastoma', '#FF7ECF'],
+            ],
+            'Tumor location': [
                ['Spine', '#77AF9C'],
                ['Supratentorial', '#379634'],
                ['Optic pathway', '#755B69'],
@@ -113,8 +122,8 @@ export default {
         categories: {
             ...fixedCategories.vertical,
             'Mutation': [
-                ['No', '#E8E8E8'],
-                ['Yes', '#003366'],
+                ['No', '#a6cee3'],
+                ['Yes', '#1f78b4'],
             ],
         },
     },
