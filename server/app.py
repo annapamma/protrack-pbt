@@ -15,10 +15,15 @@ app = Flask(__name__,
 #         r"/api/*": {"origins": "*"},
 #     }
 # )
-actual_df = pickle.load(open('../data/pickle/actual.pkl', 'rb'))
-color_df = pickle.load(open('../data/pickle/color.pkl', 'rb'))
-top_series = pickle.load(open('../data/pickle/top_series.pkl', 'rb'))
-landing_data_series = pickle.load(open('../data/pickle/landing_data.pkl', 'rb'))
+if app.config['ENV'] == 'development':
+    data_dir = '../data/pickle'
+else:
+    data_dir = '/home/cptacheatmap/protrack-pbt/data'
+
+actual_df = pickle.load(open(f'{data_dir}/actual.pkl', 'rb'))
+color_df = pickle.load(open(f'{data_dir}/color.pkl', 'rb'))
+top_series = pickle.load(open(f'{data_dir}/top_series.pkl', 'rb'))
+landing_data_series = pickle.load(open(f'{data_dir}/landing_data.pkl', 'rb'))
 
 
 def filtered_df(df, genes):
