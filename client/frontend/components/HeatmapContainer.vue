@@ -66,14 +66,6 @@ export default {
         },
         series() {
           return filterByDiagnosisByGene(this.$store.state.series, this.diagnosis);
-          // if (this.diagnosis === 'All') {
-          //   return this.$store.state.series;
-          // }
-          // return this.$store.state.series.map(el => ({
-          //   name: el.name,
-          //   data: el.data.filter(el => diagnosisSample[el.x] === this.diagnosis),
-          // }));
-            // return ;
         },
         topSeries() {
           return filterByDiagnosis(this.$store.state.topSeries, this.diagnosis);

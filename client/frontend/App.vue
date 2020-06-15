@@ -5,7 +5,7 @@
       <div class="main">
         <input-container />
         <heatmap-container />
-<!--        <the-legend-container />-->
+        <the-legend-container />
       </div>
   </div>
 </template>
@@ -15,11 +15,11 @@ import CptacDescription from '../frontend/components/CptacDescription.vue';
 import HeatmapContainer from '../frontend/components/HeatmapContainer.vue';
 import InputContainer from '../frontend/components/InputContainer.vue';
 import LogoContainer from '../frontend/components/LogoContainer.vue';
-// import TheLegendContainer from "./components/TheLegendContainer.vue";
+import TheLegendContainer from "../frontend/components/TheLegendContainer.vue";
 
 export default {
   components: {
-    // TheLegendContainer,
+    TheLegendContainer,
     CptacDescription,
     HeatmapContainer,
     InputContainer,
