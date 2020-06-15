@@ -5,7 +5,7 @@ const fixedCategories = {
         ],
     },
     vertical: {
-            'Stage/Grade': [
+            'Grade': [
                 ['I', '#A6CEE3'],
                 ['I/II', '#1F78B4'],
                 ['II', '#B2DF8A'],
@@ -92,8 +92,8 @@ const fixedCategories = {
                 ['Treatment naive', '#8D99AE'],
                 ['Post-treatment', '#2B2D42'],
             ],
-            'Status at collection': [
-                ['Alive', '#416788'],
+            'Sample collection': [
+                ['Surgical collection', '#7fc97e'],
                 ['Post-mortem', '#E0E0E2'],
             ],
     },

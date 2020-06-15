@@ -25,7 +25,7 @@ export default new Vuex.Store({
   state: {
     excelData: {},
     firstPhosphoFetched: false,
-    genes: ['BRAF', 'CASP3', 'NF1', 'RASA1', 'RPS6KA2', 'RRAS2'],
+    genes: ['BRAF', 'CTNNB1', 'FDPS', 'NF1', 'RABGAP1L', 'SMARCB1'],
     geneDetails: {},
     heights: {
         16: 300,
@@ -349,7 +349,6 @@ export default new Vuex.Store({
             genes
       ).then(
         ({ data }) => {
-            console.log('payload ', data)
             store.commit('UPDATE_SERIES', data.series);
         },
       ).catch(
