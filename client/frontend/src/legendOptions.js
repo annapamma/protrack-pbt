@@ -42,8 +42,8 @@ const fixedCategories = {
                 ['Cranio/LGG-BRAF-V600E', '#c79b72'], //fffea6'],
                 ['HGG-rich', '#2c72c7'],
                 ['Ganglio-rich', '#74cfeb'],
-                ['LGG-BRAF-Fusion-rich', '#9376fd'],
-                ['LGG-BRAF-WT-rich', '#a781d4'],
+                ['LGG_BRAF.WT-rich', '#493d8c'],
+                ['LGG_BRAF.fusion-rich', '#b3a3f3'],
             ],
             'Phospho cl': [
                 ['1', '#FFFFAD'],
