@@ -151,12 +151,12 @@ const colorsRanges = {
 1027: '#BF1A2F', //'Thalamic/cortical'
 1028: '#75f961', // proteo cl: Ependy
 1029: '#ef87cc', // proteo cl:Medullo
-1030: '#732512', // proteo cl:Aggressive
-1031: '#fffea6', // proteo cl:Cranio/LGG-BRAF-V600E
-1032: '#304ed4', // proteo cl:HGG-rich
+1030: '#71654a', // proteo cl:Aggressive
+1031: '#c79b72', // proteo cl:Cranio/LGG-BRAF-V600E
+1032: '#2c72c7', // proteo cl:HGG-rich
 1033: '#74cfeb', // proteo cl:Ganglio-rich
-1034: '#493d8c', // proteo cl:LGG-BRAF-WT-rich
-1035: '#b3a3f3', // proteo cl:LGG-BRAF-Fusion-rich
+1035: '#9376fd', // proteo cl:LGG-BRAF-Fusion-rich
+1034: '#a781d4', // proteo cl:LGG-BRAF-WT-rich
 1036: '#FFBF00', // diagnosis: Craniopharyngioma
 1037: '#9F72FF', // diagnosis: Low-grade glioma/astrocytoma
 1038: '#3249DC', // diagnosis: High-grade glioma/astrocytoma
