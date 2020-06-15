@@ -29,7 +29,7 @@ export default new Vuex.Store({
     chromosomeSeries,
     excelData: {},
     firstPhosphoFetched: false,
-    genes: ['BRAF'],
+    genes: ['BRAF', 'CASP3', 'NF1', 'RASA1', 'RPS6KA2', 'RRAS2'],
     geneDetails: {},
     heights: {
         16: 300,
