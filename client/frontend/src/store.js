@@ -11,6 +11,8 @@ import chromosomeSeries from './chromosomeSeries.js';
 import bottomSeries from './bottomSeries.js';
 import landingDataMutation from "./landingDataMutation.js";
 
+console.log('FOO: ', process.env.NODE_ENV)
+
 Vue.use(Vuex);
 
 //TODO (6/12): phospho view
@@ -18,7 +20,10 @@ Vue.use(Vuex);
 // gene details
 // add loading state
 // add legend
-const apiRoot = 'http://127.0.0.1:5000/';
+let apiRoot = ''
+if (process.env.NODE_ENV === 'development') {
+  apiRoot = 'http://127.0.0.1:5000/';
+}
 
 export default new Vuex.Store({
   state: {
