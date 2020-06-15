@@ -86,6 +86,18 @@ def landing_data():
         'topSeries': top_series,
         'landingData': landing_data_series,
     })
+
+
+@app.route('/')
+def index():
+    return app.send_static_file("index.html")
+
+
+@app.route('/assets/<path:path>')
+def send_assets(path):
+    return send_from_directory(safe_join(STATIC_DIR, ASSETS_DIR), path)
+
+
 # phospho_df = pickle.load(open('../data/phospho.pkl', 'rb'))
 # mutation_df = pickle.load(open('../data/mutation.pkl', 'rb'))
 # mutation_color_df = pickle.load(open('../data/mutation_color.pkl', 'rb'))
