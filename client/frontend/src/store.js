@@ -7,8 +7,6 @@ import { utils, writeFile } from 'xlsx';
 import landingData from './landingData.js';
 import landingDataPhospho from './landingDataPhospho.js';
 import initialSortOrder from './initialSortOrder.js';
-import chromosomeSeries from './chromosomeSeries.js';
-import bottomSeries from './bottomSeries.js';
 import landingDataMutation from "./landingDataMutation.js";
 
 Vue.use(Vuex);
@@ -25,8 +23,6 @@ if (process.env.NODE_ENV === 'development') {
 
 export default new Vuex.Store({
   state: {
-    bottomSeries,
-    chromosomeSeries,
     excelData: {},
     firstPhosphoFetched: false,
     genes: ['BRAF', 'CASP3', 'NF1', 'RASA1', 'RPS6KA2', 'RRAS2'],

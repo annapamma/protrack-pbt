@@ -78,12 +78,6 @@ export default {
         topSeries() {
           return filterByDiagnosis(this.$store.state.topSeries, this.diagnosis);
         },
-        chromosomeSeries() {
-            return this.$store.state.chromosomeSeries;
-        },
-        bottomSeries() {
-            return this.$store.state.bottomSeries;
-        },
         selectedTracks() {
             return this.$store.state.selectedTracks;
         },
