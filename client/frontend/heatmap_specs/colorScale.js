@@ -168,22 +168,22 @@ const colorsRanges = {
 1044: '#F0027F', // Last Known Clinical Status: Deceased-due to disease
 1045: '#386CB0', // Last Known Clinical Status: Deceased-due to other causes
 1046: '#FFFF99', // Last Known Clinical Status: Deceased-due to unknown causes
-1047: '#FFFFAD', // phospho cl 1
-1048: '#828282', // phospho cl 2
-1049: '#FFCCA1', // phospho cl 3
-1050: '#FF5597', // phospho cl 4
-1051: '#5C88CB', // phospho cl 5
-1052: '#CCBDE3', // phospho cl 6
-1053: '#DC7541', // phospho cl 7
-1054: '#7cff7a', // phospho cl 8
-1055: '#FF89B0', // rna cl 1
-1056: '#7CA4E8', // rna cl 2
-1057: '#DBCBF1', // rna cl 3
-1058: '#FFD9BB', // rna cl 4
-1059: '#FA8F61', // rna cl 5
-1060: '#FFFFC3', // rna cl 6
-1061: '#9CE59C', // rna cl 7
-1062: '#A0A0A0', // rna cl 8
+1047: '#47828C', // phospho cl 1
+1048: '#0EEC55', // phospho cl 2
+1049: '#B16A92', // phospho cl 3
+1050: '#CF9461', // phospho cl 4
+1051: '#3271E6', // phospho cl 5
+1052: '#9577FE', // phospho cl 6
+1053: '#47B5FC', // phospho cl 7
+1054: '#A782D2', // phospho cl 8
+1055: '#09EC51', // rna cl 1
+1056: '#F27ACF', // rna cl 2
+1057: '#5588D7', // rna cl 3
+1058: '#961233', // rna cl 4
+1059: '#881A4B', // rna cl 5
+1060: '#9A73FE', // rna cl 6
+1061: '#FFBF00', // rna cl 7
+1062: '#5CA4F6', // rna cl 8
 1071: '#8D99AE', // 'Treatment naive'
 1072: '#2B2D42', // 'Post-treatment'
 1073: '#416788', // 'Alive'
