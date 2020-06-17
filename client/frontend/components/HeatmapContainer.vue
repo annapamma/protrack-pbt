@@ -1,5 +1,6 @@
 <template>
   <div class="heatmap-container">
+    <p class="diagnosis-instructions">Click button to filter heatmap by diagnosis:</p>
     <diagnosis-selector />
     <heatmap-clinical
         :series="topSeries"
@@ -116,5 +117,8 @@ function filterByDiagnosisByGene(s, d) {
     margin: 2px;
   }
 
-
+.diagnosis-instructions {
+  font-size: small;
+  font-weight: bold;
+}
 </style>

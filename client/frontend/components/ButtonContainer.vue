@@ -16,6 +16,7 @@
         <button @click="sort(ascending=false)" style="background-color: lightgray;">
           Sort {{ this.series.length ? `by ${this.series}: descending` : '' }}
         </button>
+        <p>Click data point on heatmap to enable sorting.</p>
       </div>
 <!--      <div class="sort-buttons-alert specific-data" v-if="!(genes.length <= 30)">-->
 <!--        Shorten gene list to 30 genes or less to enable track sorting.-->
