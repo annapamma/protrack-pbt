@@ -44,7 +44,7 @@
 
 <style>
   .apex-container {
-    width: calc(100vw - 350px);
+    width: 1000px;
     min-width: 800px;
   }
 

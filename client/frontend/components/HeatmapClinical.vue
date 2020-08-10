@@ -6,6 +6,7 @@
             :options="options"
             :series="series"
           />
+          <b-loading :is-full-page="false" :active.sync="isLoading" :can-cancel="true"></b-loading>
     </div>
 </template>
 
@@ -17,6 +18,9 @@
             height() {
                 return this.$store.state.heights[this.series.length];
             },
+            isLoading() {
+              return this.$store.state.isLoading;
+            }
         },
     }
 </script>

@@ -6,7 +6,6 @@
         <input-container />
         <heatmap-container />
         <the-legend-container />
-        <b-loading :is-full-page="false" :active.sync="isLoading" :can-cancel="true"></b-loading>
       </div>
   </div>
 </template>
@@ -27,12 +26,14 @@ export default {
     LogoContainer,
   },
   computed: {
-    isLoading() {
-      return this.$store.state.isLoading;
-    }
   },
   mounted() {
-    // this.$store.dispatch('loadFirstData')
+    this.$store.dispatch('submitGenes',
+          {
+            genes: ['BRAF', 'CTNNB1', 'FDPS', 'NF1', 'RABGAP1L', 'SMARCB1'],
+            diagnosis: 'All',
+            view: 'all',
+          });
   }
 };
 </script>

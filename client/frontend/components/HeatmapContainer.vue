@@ -5,6 +5,7 @@
     <heatmap-clinical
         :series="topSeries"
         :options="options"
+        :key="diagnosis"
     />
     <heatmap
         v-for="(val, gene) in series"
@@ -13,32 +14,16 @@
         :gene="gene"
         :key="gene"
     />
-<!--    <heatmap v-if="selectedView === 'phospho'"-->
-<!--        v-for="(val, gene) in phosphoSeries"-->
-<!--        :options="options"-->
-<!--        :series="val"-->
-<!--        :gene="gene"-->
-<!--        :key="gene.toString()"-->
-<!--    />-->
-<!--      <heatmap v-if="selectedView === 'mutation'"-->
-<!--        v-for="(val, gene) in mutationSeries"-->
-<!--        :options="options"-->
-<!--        :series="val"-->
-<!--        :gene="gene"-->
-<!--        :key="gene.toString()"-->
-<!--    />-->
   </div>
 </template>
 
 <script>
-// import TheLegendContainer from './TheLegendContainer.vue';
 import Heatmap from './Heatmap.vue';
 import HeatmapClinical from "./HeatmapClinical.vue";
 import DiagnosisSelector from "./DiagnosisSelector";
 
 import chartOptions from '../heatmap_specs/chartOptions.js';
 import colorScale from '../heatmap_specs/colorScale.js';
-import diagnosisSample from "../src/diagnosis.js";
 
 export default {
     name: 'HeatmapContainer',
@@ -46,12 +31,10 @@ export default {
       DiagnosisSelector,
         HeatmapClinical,
         Heatmap,
-        // TheLegendContainer,
     },
     data() {
         return {
             options: chartOptions(colorScale, this),
-            isLoading: true,
             fullPage: false,
         };
     },
@@ -59,50 +42,17 @@ export default {
         diagnosis() {
           return this.$store.state.selectedDiagnosis;
         },
-        mutationSeries() {
-            return this.$store.state.mutationSeries;
-        },
-        phosphoSeries() {
-            return this.$store.state.phosphoSeries;
-        },
+        // isLoading() {
+        //   return this.$store.state.isLoading;
+        // },
         series() {
-          return filterByDiagnosisByGene(this.$store.state.series, this.diagnosis);
+          return this.$store.state.series;
         },
         topSeries() {
-          return filterByDiagnosis(this.$store.state.topSeries, this.diagnosis);
+          return this.$store.state.topSeries;
         },
-        selectedTracks() {
-            return this.$store.state.selectedTracks;
-        },
-        selectedView() {
-            return this.$store.state.selectedView;
-        }
     },
 };
-
-function filterByDiagnosis(s, d) {
-  if (d === 'All') {
-    return s
-  }
-  return s.map(el => ({
-    name: el.name,
-    data: el.data.filter(el => diagnosisSample[el.x] === d),
-  }));
-}
-
-function filterByDiagnosisByGene(s, d) {
-  if (d === 'All') {
-    return s
-  }
-  let new_s = {}
-  for (const [gene, gene_s] of Object.entries(s)) {
-    new_s[gene] = gene_s.map(el => ({
-      data: el.data.filter(el => diagnosisSample[el.x] === d),
-      name: el.name,
-    }));
-  }
-  return new_s
-}
 </script>
 
 <style scoped>
