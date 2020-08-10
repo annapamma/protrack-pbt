@@ -6,7 +6,7 @@
         :series="topSeries"
         :options="options"
     />
-    <heatmap v-if="selectedView === 'all'"
+    <heatmap
         v-for="(val, gene) in series"
         :options="options"
         :series="val"

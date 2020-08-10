@@ -59,9 +59,11 @@
         },
       methods: {
           selectDiagnosis(diagnosis) {
+            this.$store.dispatch('updateDiagnosis', diagnosis)
             this.$store.dispatch('submitGenes', {
               genes: this.$store.state.genes,
-              diagnosis
+              diagnosis,
+              view: this.$store.state.selectedView,
             })
           }
       }

@@ -343,16 +343,17 @@ export default new Vuex.Store({
     selectDisease(store, disease) {
       store.commit('UPDATE_SELECTED_DISEASE', disease);
     },
-    submitGenes(store, { genes, diagnosis }) {
+    submitGenes(store, { genes, diagnosis, view }) {
       store.commit('SET_LOADING', true);
       store.commit('ASSIGN_GENE_LIST', genes);
       axios.post(
         `${apiRoot}api/series/`,
-            { genes, diagnosis }
+            { genes, diagnosis, view }
       ).then(
         ({ data }) => {
             store.commit('UPDATE_TOP_SERIES', data.topSeries)
             store.commit('UPDATE_SERIES', data.series);
+            store.commit('REORDER_SAMPLES');
         },
       ).catch(
         (e) => {
@@ -424,8 +425,11 @@ export default new Vuex.Store({
 
       store.commit('SET_GENE_LIST', [...new Set(geneListArr)]);
     },
-    selectDiagnosis(store, diagnosis) {
+    updateDiagnosis(store, diagnosis) {
       store.commit('SELECT_DIAGNOSIS', diagnosis)
+    },
+    updateView(store, view) {
+      store.commit('UPDATE_SELECTED_VIEW', view)
     },
   },
 });

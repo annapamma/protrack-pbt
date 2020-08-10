@@ -12,7 +12,7 @@
       </div>
       <button class="button-visualize" @click="submitGenes">Visualize</button>
       <button class="button-excel" @click="downloadExcel">Download Excel</button>
-<!--      <view-dropdown />-->
+      <view-dropdown />
   </div>
 </template>
 
@@ -55,7 +55,8 @@ export default {
         'submitGenes',
         {
           genes: this.genes,
-          diagnosis: 'All'
+          diagnosis: this.$store.state.selectedDiagnosis,
+          view: this.$store.state.selectedView,
         },
       );
       // this.$store.dispatch(

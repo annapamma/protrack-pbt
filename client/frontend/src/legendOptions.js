@@ -144,7 +144,7 @@ export default {
             ...fixedCategories.vertical
         },
     },
-    'mutation': {
+    'mut': {
         categoriesHorizontal: {
             'Mutation occurrences': [
                 ['0', '#ececec'],
@@ -157,4 +157,53 @@ export default {
             ...fixedCategories.vertical
         },
     },
+  'cnv': {
+      categoriesHorizontal: {
+            'CNV': [
+                ['(-inf, -0.5]', '#00004d'],
+                ['(-0.5, -0.2]', '#82b6ff'],
+                ['(-0.2, 0.2]', '#E8E8E8'],
+                ['(0.2, 0.5]', '#ff7777'],
+                ['(0.5, +inf)', '#990000'],
+            ],
+            ...fixedCategories.horizontal,
+        },
+        categories: {
+            ...fixedCategories.vertical,
+        },
+  },
+  'proteo': {
+      categoriesHorizontal: {
+            'Proteo Z-Score': [
+                ['<-3', '#00004d'],
+                ['-2', '#0066cc'],
+                ['-1', '#82b6ff'],
+                ['0', '#E8E8E8'],
+                ['1', '#ff7777'],
+                ['2', '#ff1111'],
+                ['>3', '#990000'],
+            ],
+            ...fixedCategories.horizontal,
+        },
+        categories: {
+            ...fixedCategories.vertical,
+        },
+  },
+  'rna': {
+      categoriesHorizontal: {
+            'mRNA Z-Score': [
+                ['<-3', '#00004d'],
+                ['-2', '#0066cc'],
+                ['-1', '#82b6ff'],
+                ['0', '#E8E8E8'],
+                ['1', '#ff7777'],
+                ['2', '#ff1111'],
+                ['>3', '#990000'],
+            ],
+            ...fixedCategories.horizontal,
+        },
+        categories: {
+            ...fixedCategories.vertical,
+        },
+  }
 }

@@ -65,6 +65,7 @@ def df_to_apex_data_single_gene(filtered_gene_df, actual):
 def submit_genes():
     data = json.loads(request.data)
     d = data['diagnosis']
+    v = data['view']
     if d == 'All':
         s = actual_df.columns
     else:
@@ -75,19 +76,27 @@ def submit_genes():
     top_color_df = color_df[s][color_df['Gene symbol'] == ''].drop(columns=['Data type', 'Gene symbol'])
     top_actual_df = actual_df[s][actual_df['Gene symbol'] == ''].drop(columns=['Data type', 'Gene symbol'])
 
-    final_top = df_to_apex_data(top_color_df, top_actual_df)
+    if v != 'all':
+        filtered_color_df = filtered_color_df[filtered_color_df['Data type'] == v]
+        filtered_actual_df = filtered_actual_df[filtered_actual_df['Data type'] == v]
 
-    gene_dfs = {
-        g: df_to_apex_data_single_gene(
+    final_top = df_to_apex_data(
+        top_color_df,
+        top_actual_df
+    )
+
+    final_series = {}
+    for g in genes:
+        gdf = df_to_apex_data_single_gene(
             filtered_df_single_gene(filtered_color_df, g).drop(columns=['Data type', 'Gene symbol']),
             filtered_actual_df
         )
-        for g in genes
-    }
+        if len(gdf):
+            final_series[g] = gdf
 
     return jsonify({
         'topSeries': final_top,
-        'series': gene_dfs,
+        'series': final_series,
     })
 
 
