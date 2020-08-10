@@ -49,7 +49,7 @@ export default new Vuex.Store({
     isLoading: false,
     mutationSeries: landingDataMutation.series,
     pathwayIsSelected: false,
-    series: landingData.series,
+    series: {},
     seriesUnfiltered: landingData.series,
     phosphoSeries: landingDataPhospho.series,
     selectedDiagnosis: 'All',
@@ -335,26 +335,31 @@ export default new Vuex.Store({
       }
     },
     sortSamples(store, ascending) {
+      store.commit('SET_LOADING', true);
       store.commit('SORT_SAMPLES', ascending);
       store.commit('REORDER_SAMPLES');
+      store.commit('SET_LOADING', false);
     },
     selectDisease(store, disease) {
       store.commit('UPDATE_SELECTED_DISEASE', disease);
     },
-    submitGenes(store, genes) {
+    submitGenes(store, { genes, diagnosis }) {
       store.commit('SET_LOADING', true);
-      store.commit('ASSIGN_GENE_LIST', genes['genes']);
+      store.commit('ASSIGN_GENE_LIST', genes);
       axios.post(
         `${apiRoot}api/series/`,
-            genes
+            { genes, diagnosis }
       ).then(
         ({ data }) => {
+            store.commit('UPDATE_TOP_SERIES', data.topSeries)
             store.commit('UPDATE_SERIES', data.series);
         },
       ).catch(
         (e) => {
           console.error('FetchError: ', e.message);
         },
+      ).finally(
+        () => { store.commit('SET_LOADING', false); }
       );
     },
     submitGenesPhospho(store, genes) {

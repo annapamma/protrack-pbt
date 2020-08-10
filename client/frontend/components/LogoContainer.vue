@@ -4,7 +4,7 @@
         ProTrack: Pediatric Brain Tumor
     </div>
     <div class="mssm-logo">
-        <img src="../assets/logo_combined.png" height="80" style="margin-left:auto; margin-right:0;">
+        <img class="mssm-logo-img" src="../assets/logo_combined.png">
     </div>
   </div>
 </template>
@@ -22,5 +22,11 @@ export default {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+  }
+
+  .mssm-logo-img {
+    height: 80px;
+    margin-left:auto;
+    margin-right:0;
   }
 </style>

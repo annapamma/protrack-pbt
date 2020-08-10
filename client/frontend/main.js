@@ -7,7 +7,11 @@ import VModal from 'vue-js-modal'
 import JsonExcel from 'vue-json-to-excel';
 
 import store from './src/store.js';
+import Buefy from 'buefy'
 
+import 'buefy/dist/buefy.css'
+
+Vue.use(Buefy)
 Vue.use(VueApexCharts);
 Vue.use(VModal);
 Vue.component('apexchart', VueApexCharts);

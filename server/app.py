@@ -24,6 +24,7 @@ actual_df = pickle.load(open(f'{data_dir}/actual.pkl', 'rb'))
 color_df = pickle.load(open(f'{data_dir}/color.pkl', 'rb'))
 top_series = pickle.load(open(f'{data_dir}/top_series.pkl', 'rb'))
 landing_data_series = pickle.load(open(f'{data_dir}/landing_data.pkl', 'rb'))
+diagnosis = pickle.load(open(f'{data_dir}/diagnosis.pkl', 'rb'))
 
 
 def filtered_df(df, genes):
@@ -62,16 +63,30 @@ def df_to_apex_data_single_gene(filtered_gene_df, actual):
 @app.route('/api/series/', methods=['POST'])
 @cross_origin()
 def submit_genes():
-    genes = [g for g in json.loads(request.data)['genes'] if g in actual_df['Gene symbol'].values]
+    data = json.loads(request.data)
+    d = data['diagnosis']
+    if d == 'All':
+        s = actual_df.columns
+    else:
+        s = ['Data type', 'Gene symbol'] + diagnosis[d]
+    genes = [g for g in data['genes'] if g in actual_df['Gene symbol'].values]
+    filtered_color_df = color_df[s][color_df['Gene symbol'].isin(genes)]
+    filtered_actual_df = actual_df[s][actual_df['Gene symbol'].isin(genes)]
+    top_color_df = color_df[s][color_df['Gene symbol'] == ''].drop(columns=['Data type', 'Gene symbol'])
+    top_actual_df = actual_df[s][actual_df['Gene symbol'] == ''].drop(columns=['Data type', 'Gene symbol'])
+
+    final_top = df_to_apex_data(top_color_df, top_actual_df)
+
     gene_dfs = {
         g: df_to_apex_data_single_gene(
-            filtered_df_single_gene(color_df, g).drop(columns=['Data type', 'Gene symbol']),
-            actual_df
+            filtered_df_single_gene(filtered_color_df, g).drop(columns=['Data type', 'Gene symbol']),
+            filtered_actual_df
         )
         for g in genes
     }
 
     return jsonify({
+        'topSeries': final_top,
         'series': gene_dfs,
     })
 
@@ -114,30 +129,28 @@ def send_assets(path):
 # }
 
 
-# def df_to_apex_data(color_scale_df, actual_df, mutation_series_len):
-#     series = [
-#         {
-#             'name': data_type,
-#             'data': [
-#                 {
-#                  'x': val[0], # sample ID
-#                  'y': val[1], # color scale val
-#                  'value': actual_df[val[0]][data_type]
-#                 }
-#                 for val in vals.items()
-#             ]
-#         }
-#         for data_type, vals in color_scale_df.iterrows()
-#     ]
-#     blank_row = { 'name': '', 'data': [] }
-#     last_clinical_index = 13
-#     proteo_separator = last_clinical_index + mutation_series_len + 1
-#     series.insert(7, blank_row)
-#     series.insert(11, blank_row)
-#     series.insert(13, blank_row)
-#     series.insert(15, blank_row)
-#     # series.insert(proteo_separator, blank_row)
-#     return series[::-1]
+def df_to_apex_data(color_scale_df, actual_df):
+    series = [
+        {
+            'name': data_type,
+            'data': [
+                {
+                 'x': val[0], # sample ID
+                 'y': val[1], # color scale val
+                 'value': actual_df[val[0]][data_type],
+                  'gene': '',
+                }
+                for val in vals.items()
+            ]
+        }
+        for data_type, vals in color_scale_df.iterrows()
+    ]
+    blank_row = { 'name': '', 'data': [] }
+    series.insert(3, blank_row)
+    series.insert(7, blank_row)
+    series.insert(11, blank_row)
+    return series[::-1]
+
 #
 #
 # def df_to_apex_data_phospho(color_scale_df, actual_df):

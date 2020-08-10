@@ -59,7 +59,10 @@
         },
       methods: {
           selectDiagnosis(diagnosis) {
-            this.$store.dispatch('selectDiagnosis', diagnosis)
+            this.$store.dispatch('submitGenes', {
+              genes: this.$store.state.genes,
+              diagnosis
+            })
           }
       }
     }

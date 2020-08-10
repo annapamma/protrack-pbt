@@ -1,6 +1,6 @@
 <template>
     <div class="legend-element">
-        <div class="box" v-bind:style="{ 'backgroundColor': color }" v-bind:class="{'missing': missing}" id="colorbox"></div>
+        <div class="l-box" v-bind:style="{ 'backgroundColor': color }" v-bind:class="{'missing': missing}" id="colorbox"></div>
         <label for="colorbox">{{ value }}</label>
     </div>
 </template>
@@ -25,7 +25,7 @@ export default {
         font-weight: bold;
     }
 
-    .box {
+    .l-box {
         width:9px;
         height:9px;
         border-radius: 1px;

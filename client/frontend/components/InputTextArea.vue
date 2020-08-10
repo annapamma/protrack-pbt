@@ -28,11 +28,11 @@ export default {
         this.$store.dispatch('setGeneList', txt);
       },
       get() {
-        return this.$store.state.genes.join('\n');
+        return this.$store.state.genes ? this.$store.state.genes.join('\n') : [];
       },
     },
     genes() {
-      return this.$store.state.genes;
+      return this.$store.state.genes ? this.$store.state.genes : [];
     },
     pathwayIsSelected() {
       return this.$store.state.pathwayIsSelected;
@@ -55,6 +55,7 @@ export default {
         'submitGenes',
         {
           genes: this.genes,
+          diagnosis: 'All'
         },
       );
       // this.$store.dispatch(

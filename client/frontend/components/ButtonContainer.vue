@@ -52,7 +52,7 @@ export default {
       return this.$store.state.selectedPeptide;
     },
     genes() {
-      return this.$store.state.genes;
+      return this.$store.state.genes ? this.$store.state.genes : [];
     },
   },
   methods: {

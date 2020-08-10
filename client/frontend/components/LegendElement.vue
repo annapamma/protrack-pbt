@@ -1,6 +1,6 @@
 <template>
     <div class="legend-element">
-        <div class="box" v-bind:style="{ 'backgroundColor': color }" id="colorbox"></div>
+        <div class="l-box" v-bind:style="{ 'backgroundColor': color }" id="colorbox"></div>
         <label for="colorbox">{{ value }}</label>
     </div>
 </template>
@@ -25,7 +25,7 @@ export default {
         margin-left: 1px;
     }
 
-    .box{
+    .l-box{
         width:9px;
         height:9px;
         border-radius: 1px;

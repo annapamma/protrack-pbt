@@ -6,6 +6,7 @@
         <input-container />
         <heatmap-container />
         <the-legend-container />
+        <b-loading :is-full-page="false" :active.sync="isLoading" :can-cancel="true"></b-loading>
       </div>
   </div>
 </template>
@@ -25,9 +26,14 @@ export default {
     InputContainer,
     LogoContainer,
   },
-    mounted() {
-      this.$store.dispatch('loadFirstData')
+  computed: {
+    isLoading() {
+      return this.$store.state.isLoading;
     }
+  },
+  mounted() {
+    // this.$store.dispatch('loadFirstData')
+  }
 };
 </script>
 
