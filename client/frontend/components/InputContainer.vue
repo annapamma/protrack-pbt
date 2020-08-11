@@ -35,9 +35,9 @@ export default {
   .input-container {
     display: flex;
     flex-direction: column;
-    min-width: 250px;
+    flex: 0 0 250px;
     height: 100%;
-    padding: 0 10px;
+    margin: 0 10px;
     font-size: small;
   }
 </style>

@@ -4,8 +4,10 @@
       <cptac-description />
       <div class="main">
         <input-container />
-        <heatmap-container />
-        <the-legend-container />
+        <div class="data-view-container">
+          <heatmap-container />
+          <the-legend-container />
+        </div>
       </div>
   </div>
 </template>
@@ -52,11 +54,15 @@ export default {
   .main {
     display: flex;
     flex-direction: row;
-    height: 85%;
     margin-top: 20px;
   }
 
   button:hover {
     cursor: pointer;
+  }
+
+  .data-view-container {
+    display: flex;
+    overflow: scroll;
   }
 </style>
