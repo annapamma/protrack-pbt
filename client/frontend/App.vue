@@ -2,6 +2,7 @@
   <div id="app">
       <logo-container />
       <cptac-description />
+      <diagnosis-selector />
       <div class="main">
         <input-container />
         <div class="data-view-container">
@@ -18,9 +19,11 @@ import HeatmapContainer from '../frontend/components/HeatmapContainer.vue';
 import InputContainer from '../frontend/components/InputContainer.vue';
 import LogoContainer from '../frontend/components/LogoContainer.vue';
 import TheLegendContainer from "../frontend/components/TheLegendContainer.vue";
+import DiagnosisSelector from "./components/DiagnosisSelector";
 
 export default {
   components: {
+    DiagnosisSelector,
     TheLegendContainer,
     CptacDescription,
     HeatmapContainer,
@@ -49,12 +52,13 @@ export default {
     width: 99vw;
     height: 100vh;
     margin: 0 auto;
+    font-size: small;
+    font-weight: bold;
   }
 
   .main {
     display: flex;
     flex-direction: row;
-    margin-top: 20px;
   }
 
   button:hover {

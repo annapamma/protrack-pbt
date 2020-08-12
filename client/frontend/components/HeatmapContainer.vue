@@ -1,7 +1,5 @@
 <template>
   <div class="heatmap-container">
-    <p class="diagnosis-instructions">Click button to filter heatmap by diagnosis:</p>
-    <diagnosis-selector />
     <heatmap-clinical
         :series="topSeries"
         :options="options"

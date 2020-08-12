@@ -37,7 +37,8 @@ export default {
     flex-direction: column;
     flex: 0 0 250px;
     height: 100%;
-    margin: 0 10px;
+    margin: -35px 0 10px;
+    /*margin-top: -35px;*/
     font-size: small;
   }
 </style>

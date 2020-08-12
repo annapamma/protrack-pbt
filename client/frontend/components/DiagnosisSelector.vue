@@ -1,5 +1,7 @@
 <template>
     <div class="diagnosis-selector">
+      <p class="diagnosis-instructions">Click button to filter heatmap by diagnosis:</p>
+      <div class="diagnosis-selector-buttons">
       <button
         v-for="(style, diagnosis) in diagnoses"
         class="diagnosis-button"
@@ -8,6 +10,7 @@
       >
         {{ acronyms.hasOwnProperty(diagnosis) ? acronyms[diagnosis] : diagnosis }}
       </button>
+      </div>
     </div>
 </template>
 
@@ -77,13 +80,19 @@
     border-radius: 2px;
     padding: 4px 10px;
   }
+
   .diagnosis-selector {
+    margin-left: 300px;
+    margin-top: 15px;
+  }
+
+  .diagnosis-selector-buttons {
     display: flex;
     flex-direction: row;
     margin-right: -15px;
   }
 
-  .diagnosis-selector > * {
+  .diagnosis-selector-buttons > * {
     margin-right: 15px;
   }
 </style>
