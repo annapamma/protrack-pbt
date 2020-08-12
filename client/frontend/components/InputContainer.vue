@@ -38,7 +38,6 @@ export default {
     flex: 0 0 250px;
     height: 100%;
     margin: -35px 0 10px;
-    /*margin-top: -35px;*/
     font-size: small;
   }
 </style>

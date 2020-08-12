@@ -1,11 +1,12 @@
 <template>
   <div id="app">
+      <button type="button">to canvas</button>
       <logo-container />
       <cptac-description />
       <diagnosis-selector />
       <div class="main">
         <input-container />
-        <div class="data-view-container">
+        <div class="data-view-container" id="data-view-container">
           <heatmap-container />
           <the-legend-container />
         </div>
@@ -20,6 +21,7 @@ import InputContainer from '../frontend/components/InputContainer.vue';
 import LogoContainer from '../frontend/components/LogoContainer.vue';
 import TheLegendContainer from "../frontend/components/TheLegendContainer.vue";
 import DiagnosisSelector from "./components/DiagnosisSelector";
+import html2canvas from 'html2canvas'
 
 export default {
   components: {
@@ -30,6 +32,10 @@ export default {
     InputContainer,
     LogoContainer,
   },
+  data() {
+    return {
+    }
+  },
   computed: {
   },
   mounted() {
@@ -39,6 +45,21 @@ export default {
             diagnosis: 'All',
             view: 'all',
           });
+  },
+  methods: {
+    handleImageDownload() {
+      html2canvas(document.getElementById('data-view-container')).then(
+        cvs => {
+          const pngData = cvs.toDataURL()
+          const downloadLink = document.createElement('a')
+          downloadLink.download = 'PBT-CPTAC-heatmap.png'
+          downloadLink.href = pngData
+          document.body.appendChild(downloadLink)
+          downloadLink.click()
+          document.body.removeChild(downloadLink)
+        }
+      )
+    }
   }
 };
 </script>
