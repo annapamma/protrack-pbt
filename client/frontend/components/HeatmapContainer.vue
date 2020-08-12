@@ -5,13 +5,21 @@
         :options="options"
         :key="diagnosis"
     />
-    <heatmap
-        v-for="(val, gene) in series"
+    <heatmap-clinical
+        v-if="!viewIsAll"
+        :series="series"
         :options="options"
-        :series="val"
-        :gene="gene"
-        :key="gene"
+        :key="`${diagnosis}-single-view`"
     />
+    <div v-if="viewIsAll">
+      <heatmap
+          v-for="(val, gene) in series"
+          :options="options"
+          :geneSeries="val"
+          :gene="gene"
+          :key="gene"
+      />
+    </div>
   </div>
 </template>
 
@@ -49,6 +57,10 @@ export default {
         topSeries() {
           return this.$store.state.topSeries;
         },
+        viewIsAll() {
+            console.log('is view all? ', this.$store.state.selectedView)
+            return this.$store.state.selectedView === 'all';
+        }
     },
 };
 </script>

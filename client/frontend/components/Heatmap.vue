@@ -7,7 +7,7 @@
             class="apex-container"
             :height="height"
             :options="options"
-            :series="series"
+            :series="geneSeries"
           />
             <modal :height="'auto'" :scrollable="true" :draggable="true" :name="gene">
                 <div class="modal-content">
@@ -22,10 +22,10 @@
 <script>
     export default {
         name: "heatmap",
-        props: ['options', 'series', 'gene'],
+        props: ['options', 'geneSeries', 'gene'],
         computed: {
             height() {
-                return this.$store.state.heights[this.series.length];
+                return this.$store.state.heights[this.geneSeries.length];
             },
             geneDetails () {
                 return this.$store.state.geneDetails[this.gene]

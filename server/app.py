@@ -76,26 +76,35 @@ def submit_genes():
     top_color_df = color_df[s][color_df['Gene symbol'] == ''].drop(columns=['Data type', 'Gene symbol'])
     top_actual_df = actual_df[s][actual_df['Gene symbol'] == ''].drop(columns=['Data type', 'Gene symbol'])
 
-    if v != 'all':
-        filtered_color_df = filtered_color_df[filtered_color_df['Data type'] == v]
-        filtered_actual_df = filtered_actual_df[filtered_actual_df['Data type'] == v]
-
     final_top = df_to_apex_data(
         top_color_df,
         top_actual_df
     )
 
+    series_single = {}
+    series_all = {}
     final_series = {}
-    for g in genes:
-        gdf = df_to_apex_data_single_gene(
-            filtered_df_single_gene(filtered_color_df, g).drop(columns=['Data type', 'Gene symbol']),
-            filtered_actual_df
+    if v != 'all':
+        filtered_color_df = filtered_color_df[filtered_color_df['Data type'] == v]
+        filtered_actual_df = filtered_actual_df[filtered_actual_df['Data type'] == v]
+        final_series = df_to_apex_data(
+            filtered_color_df.drop(columns=['Data type', 'Gene symbol']),
+            filtered_actual_df,
+            clinical=False
         )
-        if len(gdf):
-            final_series[g] = gdf
+    else:
+        for g in genes:
+            gdf = df_to_apex_data_single_gene(
+                filtered_df_single_gene(filtered_color_df, g).drop(columns=['Data type', 'Gene symbol']),
+                filtered_actual_df
+            )
+            if len(gdf):
+                final_series[g] = gdf
 
     return jsonify({
         'topSeries': final_top,
+        'series_all': series_all,
+        'series_single': series_single,
         'series': final_series,
     })
 
@@ -138,7 +147,7 @@ def send_assets(path):
 # }
 
 
-def df_to_apex_data(color_scale_df, actual_df):
+def df_to_apex_data(color_scale_df, actual_df, clinical=True):
     series = [
         {
             'name': data_type,
@@ -155,9 +164,10 @@ def df_to_apex_data(color_scale_df, actual_df):
         for data_type, vals in color_scale_df.iterrows()
     ]
     blank_row = { 'name': '', 'data': [] }
-    series.insert(3, blank_row)
-    series.insert(7, blank_row)
-    series.insert(12, blank_row)
+    if clinical:
+        series.insert(3, blank_row)
+        series.insert(7, blank_row)
+        series.insert(12, blank_row)
     return series[::-1]
 
 #

@@ -20,7 +20,6 @@ import InputContainer from '../frontend/components/InputContainer.vue';
 import LogoContainer from '../frontend/components/LogoContainer.vue';
 import TheLegendContainer from "../frontend/components/TheLegendContainer.vue";
 import DiagnosisSelector from "./components/DiagnosisSelector";
-import html2canvas from 'html2canvas'
 
 export default {
   components: {

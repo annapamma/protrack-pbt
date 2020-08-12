@@ -50,6 +50,7 @@ export default new Vuex.Store({
     mutationSeries: landingDataMutation.series,
     pathwayIsSelected: false,
     series: {},
+    seriesSingle: [],
     seriesUnfiltered: landingData.series,
     phosphoSeries: landingDataPhospho.series,
     selectedDiagnosis: 'All',
@@ -108,33 +109,7 @@ export default new Vuex.Store({
 
       const sortByIndex = (a, b) => (sortOrder.indexOf(a.x) > sortOrder.indexOf(b.x) ? 1 : -1);
       let sortedObj = {};
-      if (state.selectedView === 'phospho') {
-          for (let geneName in state.phosphoSeries) {
-              const series = state.phosphoSeries[geneName];
-
-              sortedObj[geneName] =
-                  series.map((el) => {
-                      return {
-                        name: el.name,
-                        data: el.data.sort(sortByIndex),
-                      }
-                  });
-          }
-          state.phosphoSeries = sortedObj;
-      } else if (state.selectedView === 'mutation') {
-          for (let geneName in state.mutationSeries) {
-              const series = state.mutationSeries[geneName];
-
-              sortedObj[geneName] =
-                  series.map((el) => {
-                      return {
-                        name: el.name,
-                        data: el.data.sort(sortByIndex),
-                      }
-                  });
-          }
-          state.mutationSeries = sortedObj;
-      } else {
+      if (state.selectedView === 'all') {
           for (let geneName in state.series) {
               const series = state.series[geneName];
 
@@ -147,6 +122,13 @@ export default new Vuex.Store({
                   });
           }
           state.series = sortedObj;
+      } else {
+          state.series = state.series.map((el) => {
+                  return {
+                    name: el.name,
+                    data: el.data.sort(sortByIndex),
+                  }
+              });
       }
       state.topSeries = state.topSeries.map((el) => {
                   return {
@@ -174,20 +156,13 @@ export default new Vuex.Store({
 
       let seriesToSortBy = [];
       if (state.selectedGene.length) {
-          if (state.selectedView === 'phospho') {
-              seriesToSortBy = state.phosphoSeries[state.selectedGene].find(s => {
-                  return s.name === state.selectedSeries
-              });
-          } else if (state.selectedView === 'mutation') {
-              seriesToSortBy = state.mutationSeries[state.selectedGene].find(s => {
-                  return s.name === state.selectedSeries
-              });
-          } else {
+          if (state.selectedView === 'all') {
             seriesToSortBy = state.series[state.selectedGene].find(s => s.name === state.selectedSeries);
           }
       } else {
           seriesToSortBy = [
-              ...state.topSeries
+              ...state.topSeries,
+              ...state.series,
           ].find(s => s.name === state.selectedSeries);
       }
       const sorted = seriesToSortBy.data.slice().sort(sortAscendingByY);
@@ -222,6 +197,9 @@ export default new Vuex.Store({
     },
     UPDATE_SELECTED_VIEW(state, selectedView) {
         state.selectedView = selectedView
+    },
+    UPDATE_SERIES_SINGLE(state, seriesSingle) {
+        state.seriesSingle = seriesSingle;
     },
     UPDATE_PW_SELECTED(state, pathwayIsSelected) {
       state.pathwayIsSelected = pathwayIsSelected;
@@ -353,6 +331,7 @@ export default new Vuex.Store({
         ({ data }) => {
             store.commit('UPDATE_TOP_SERIES', data.topSeries)
             store.commit('UPDATE_SERIES', data.series);
+            // store.commit('UPDATE_SERIES_SINGLE', data.series_single);
             store.commit('REORDER_SAMPLES');
         },
       ).catch(
