@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-      <button type="button">to canvas</button>
+      <div v-if="downloadingImage" class="block-interaction" />
+      <button type="button" @click="handleImageDownload">to canvas</button>
       <logo-container />
       <cptac-description />
       <diagnosis-selector />
@@ -34,6 +35,7 @@ export default {
   },
   data() {
     return {
+      downloadingImage: false
     }
   },
   computed: {
@@ -48,17 +50,26 @@ export default {
   },
   methods: {
     handleImageDownload() {
-      html2canvas(document.getElementById('data-view-container')).then(
-        cvs => {
-          const pngData = cvs.toDataURL()
-          const downloadLink = document.createElement('a')
-          downloadLink.download = 'PBT-CPTAC-heatmap.png'
-          downloadLink.href = pngData
-          document.body.appendChild(downloadLink)
-          downloadLink.click()
-          document.body.removeChild(downloadLink)
-        }
-      )
+      this.downloadingImage = true
+    }
+  },
+  watch: {
+    downloadingImage() {
+      if (this.downloadingImage) {
+        html2canvas(document.getElementById('data-view-container'))
+          .then(
+            cvs => {
+              const pngData = cvs.toDataURL()
+              const downloadLink = document.createElement('a')
+              downloadLink.download = 'PBT-CPTAC-heatmap.png'
+              downloadLink.href = pngData
+              document.body.appendChild(downloadLink)
+              downloadLink.click()
+              document.body.removeChild(downloadLink)
+              this.downloadingImage = false
+          }
+        )
+      }
     }
   }
 };
@@ -89,5 +100,13 @@ export default {
   .data-view-container {
     display: flex;
     overflow: scroll;
+  }
+
+  .block-interaction {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.10);
+    z-index: 9999;
   }
 </style>
