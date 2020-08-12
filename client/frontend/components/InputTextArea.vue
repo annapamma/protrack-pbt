@@ -1,5 +1,6 @@
 <template>
   <div class="input-text-area">
+      <div v-if="downloadingImage" class="block-interaction" />
       <div class="pathway-header" v-if="pathwayIsSelected">
         {{ selectedPathway }}
       </div>
@@ -12,39 +13,49 @@
       </div>
       <button class="button-visualize" @click="submitGenes">Visualize</button>
       <button class="button-excel" @click="downloadExcel">Download Excel</button>
+      <button class="button-image" @click="handleImageDownload">Download as image</button>
       <view-dropdown />
   </div>
 </template>
 
 <script>
 import ViewDropdown from "./ViewDropdown.vue";
+import html2canvas from "html2canvas";
 
 export default {
     components: {ViewDropdown},
     name: 'InputTextArea',
+    data() {
+      return {
+        downloadingImage: false,
+      }
+    },
     computed: {
-    geneInput: {
-      set(txt) {
-        this.$store.dispatch('setGeneList', txt);
+      geneInput: {
+        set(txt) {
+          this.$store.dispatch('setGeneList', txt);
+        },
+        get() {
+          return this.$store.state.genes ? this.$store.state.genes.join('\n') : [];
+        },
       },
-      get() {
-        return this.$store.state.genes ? this.$store.state.genes.join('\n') : [];
+      genes() {
+        return this.$store.state.genes ? this.$store.state.genes : [];
+      },
+      pathwayIsSelected() {
+        return this.$store.state.pathwayIsSelected;
+      },
+      selectedPathway() {
+        return this.$store.state.selectedPathway;
       },
     },
-    genes() {
-      return this.$store.state.genes ? this.$store.state.genes : [];
-    },
-    pathwayIsSelected() {
-      return this.$store.state.pathwayIsSelected;
-    },
-    selectedPathway() {
-      return this.$store.state.selectedPathway;
-    },
-  },
   methods: {
     clearGenes() {
       this.geneInput = '';
       this.$store.dispatch('setPathwayIsSelected', false);
+    },
+    handleImageDownload() {
+      this.downloadingImage = true
     },
     submitGenes() {
       if (!this.genes.length) {
@@ -103,6 +114,25 @@ export default {
         }
     },
   },
+  watch: {
+    downloadingImage() {
+      if (this.downloadingImage) {
+        html2canvas(document.getElementById('data-view-container'))
+          .then(
+            cvs => {
+              const pngData = cvs.toDataURL()
+              const downloadLink = document.createElement('a')
+              downloadLink.download = 'PBT-CPTAC-heatmap.png'
+              downloadLink.href = pngData
+              document.body.appendChild(downloadLink)
+              downloadLink.click()
+              document.body.removeChild(downloadLink)
+              this.downloadingImage = false
+          }
+        )
+      }
+    }
+  }
 };
 </script>
 
@@ -127,7 +157,7 @@ export default {
   .button-visualize {
     width: 100%;
     background-color: #008CBA;
-    margin: 4px auto;
+    margin: 2px auto;
     border: 1px solid black;
     font-weight: bold;
     color: white;
@@ -137,7 +167,17 @@ export default {
   .button-excel {
     width: 100%;
     background-color: #1cba40;
-    margin: 0 auto;
+    margin: 2px auto;
+    border: 1px solid black;
+    font-weight: bold;
+    color: white;
+    border-radius: 4px;
+  }
+
+  .button-image {
+    width: 100%;
+    background-color: #ba851c;
+    margin: 2px auto;
     border: 1px solid black;
     font-weight: bold;
     color: white;
@@ -181,5 +221,13 @@ export default {
     font-weight: bold;
     color: black;
     border-radius: 4px;
+  }
+
+  .block-interaction {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.10);
+    z-index: 9999;
   }
 </style>
