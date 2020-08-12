@@ -38,12 +38,13 @@ export default {
   computed: {
   },
   mounted() {
-    this.$store.dispatch('submitGenes',
-          {
-            genes: ['BRAF', 'CTNNB1', 'FDPS', 'NF1', 'RABGAP1L', 'SMARCB1'],
-            diagnosis: 'All',
-            view: 'all',
-          });
+    // this.$store.dispatch('loadFirstData')
+    // this.$store.dispatch('submitGenes',
+    //       {
+    //         genes: ['BRAF', 'CTNNB1', 'FDPS', 'NF1', 'RABGAP1L', 'SMARCB1'],
+    //         diagnosis: 'All',
+    //         view: 'all',
+    //       });
   },
   methods: {
   },

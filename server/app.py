@@ -120,10 +120,7 @@ def clinical_data():
 @app.route('/api/landing_data/', methods=['GET'])
 @cross_origin()
 def landing_data():
-    return jsonify({
-        'topSeries': top_series,
-        'landingData': landing_data_series,
-    })
+    return jsonify(landing_data_series)
 
 
 @app.route('/')

@@ -5,6 +5,7 @@ import axios from 'axios';
 import { utils, writeFile } from 'xlsx';
 
 import initialSortOrder from './initialSortOrder.js';
+import landingData from "./landingData.js";
 
 Vue.use(Vuex);
 
@@ -44,7 +45,7 @@ export default new Vuex.Store({
     HGVSp_Short: '',
     isLoading: false,
     pathwayIsSelected: false,
-    series: {},
+    series: landingData.series,
     seriesSingle: [],
     selectedDiagnosis: 'All',
     selectedView: 'all',
@@ -62,7 +63,7 @@ export default new Vuex.Store({
     ],
     selectedValue: '',
     sortOrder: initialSortOrder,
-    topSeries: [],
+    topSeries: landingData.topSeries,
   },
   mutations: {
     ADD_GENE_DETAILS(state, geneDetails) {
@@ -232,12 +233,15 @@ export default new Vuex.Store({
       store.commit('SET_LOADING', isLoading);
     },
     loadFirstData(store) {
+      store.commit('SET_LOADING', true);
+
       axios.get(
         `${apiRoot}api/landing_data/`)
       .then(
         ({ data }) => {
           store.commit('UPDATE_TOP_SERIES', data.topSeries)
-          store.commit('UPDATE_SERIES', data.landingData)
+          store.commit('UPDATE_SERIES', data.series)
+          store.commit('SET_LOADING', false);
         },
       ).catch(
         (e) => {
