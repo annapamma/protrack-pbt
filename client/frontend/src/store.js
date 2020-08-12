@@ -4,10 +4,7 @@ import Vuex from 'vuex';
 import axios from 'axios';
 import { utils, writeFile } from 'xlsx';
 
-import landingData from './landingData.js';
-import landingDataPhospho from './landingDataPhospho.js';
 import initialSortOrder from './initialSortOrder.js';
-import landingDataMutation from "./landingDataMutation.js";
 
 Vue.use(Vuex);
 
@@ -24,7 +21,6 @@ if (process.env.NODE_ENV === 'development') {
 export default new Vuex.Store({
   state: {
     excelData: {},
-    firstPhosphoFetched: false,
     genes: ['BRAF', 'CTNNB1', 'FDPS', 'NF1', 'RABGAP1L', 'SMARCB1'],
     geneDetails: {},
     heights: {
@@ -47,12 +43,9 @@ export default new Vuex.Store({
     },
     HGVSp_Short: '',
     isLoading: false,
-    mutationSeries: landingDataMutation.series,
     pathwayIsSelected: false,
     series: {},
     seriesSingle: [],
-    seriesUnfiltered: landingData.series,
-    phosphoSeries: landingDataPhospho.series,
     selectedDiagnosis: 'All',
     selectedView: 'all',
     selectedGene: '',
@@ -69,7 +62,6 @@ export default new Vuex.Store({
     ],
     selectedValue: '',
     sortOrder: initialSortOrder,
-    sortOrderPhospho: [],
     topSeries: [],
   },
   mutations: {
@@ -168,9 +160,6 @@ export default new Vuex.Store({
       const sorted = seriesToSortBy.data.slice().sort(sortAscendingByY);
       state.sortOrder = sorted.map(el => el.x);
     },
-    UPDATE_FIRST_PHOSPHO_FETCHED(state, firstPhosphoFetched) {
-      state.firstPhosphoFetched = firstPhosphoFetched;
-    },
       UPDATE_SELECTED_TRACKS(state, selectedTracks) {
         let series = {};
         state.selectedTracks = selectedTracks;
@@ -185,12 +174,6 @@ export default new Vuex.Store({
     UPDATE_SERIES(state, series) {
         state.seriesUnfiltered = series;
         state.series = series;
-    },
-      UPDATE_SERIES_MUTATION(state, series) {
-        state.mutationSeries = series;
-      },
-    UPDATE_SERIES_PHOSPHO(state, series) {
-        state.phosphoSeries = series;
     },
     UPDATE_TOP_SERIES(state, topSeries) {
         state.topSeries = topSeries;
@@ -238,50 +221,6 @@ export default new Vuex.Store({
           const wb = utils.book_new();
           utils.book_append_sheet(wb, ws);
           writeFile(wb, 'CPTAC3-pbt.xls');
-        },
-      ).catch(
-        (e) => {
-          console.error('FetchError: ', e.message);
-        },
-      );
-    },
-    downloadExcelPhospho(store, { genes }) {
-      axios.post(
-        `/api/phospho_table/`,
-            genes
-      ).then(
-        ({ data }) => {
-          const ws = utils.json_to_sheet(
-            data.excelData,
-            {
-              header: ['idx', 'Peptide', 'Gene symbol', ...store.state.sortOrder],
-            },
-          );
-          const wb = utils.book_new();
-          utils.book_append_sheet(wb, ws);
-          writeFile(wb, 'CPTAC3-ccrcc-phospho.xls');
-        },
-      ).catch(
-        (e) => {
-          console.error('FetchError: ', e.message);
-        },
-      );
-    },
-   downloadExcelMutation(store, { genes }) {
-      axios.post(
-        `/api/mutation_table/`,
-            genes
-      ).then(
-        ({ data }) => {
-          const ws = utils.json_to_sheet(
-            data.excelData,
-            {
-              header: ['idx', 'Gene symbol', 'Variant_Classification', ...store.state.sortOrder],
-            },
-          );
-          const wb = utils.book_new();
-          utils.book_append_sheet(wb, ws);
-          writeFile(wb, 'CPTAC3-ccrcc-mutation.xls');
         },
       ).catch(
         (e) => {
@@ -349,20 +288,6 @@ export default new Vuex.Store({
       ).then(
         ({ data }) => {
             store.commit('UPDATE_SERIES_PHOSPHO', data.series);
-        },
-      ).catch(
-        (e) => {
-          console.error('FetchError: ', e.message);
-        },
-      );
-    },
-    submitGenesMutation(store, genes) {
-      axios.post(
-        `/api/mutation_series/`,
-            genes
-      ).then(
-        ({ data }) => {
-            store.commit('UPDATE_SERIES_MUTATION', data.series);
         },
       ).catch(
         (e) => {
