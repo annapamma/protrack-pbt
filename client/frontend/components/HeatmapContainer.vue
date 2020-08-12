@@ -6,7 +6,7 @@
         :key="diagnosis"
     />
     <heatmap-clinical
-        v-if="!viewIsAll"
+        v-if="!viewIsAll && series.length"
         :series="series"
         :options="options"
         :key="`${diagnosis}-single-view`"
