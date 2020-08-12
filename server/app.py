@@ -157,7 +157,7 @@ def df_to_apex_data(color_scale_df, actual_df):
     blank_row = { 'name': '', 'data': [] }
     series.insert(3, blank_row)
     series.insert(7, blank_row)
-    series.insert(11, blank_row)
+    series.insert(12, blank_row)
     return series[::-1]
 
 #
